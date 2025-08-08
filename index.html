@@ -10,57 +10,59 @@
       padding: 0;
       font-family: Arial, sans-serif;
       text-align: center;
+      color: white;
     }
-    .hidden {
-      display: none;
-    }
-    #page1, #page2 {
+    .page {
       height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: url('68b7e14a-5a57-433b-80d6-d2e3f2885597.png') no-repeat center center/cover;
+      background-size: cover;
+      background-position: center;
     }
     button {
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Halaman 1 -->
-  <div id="page1">
+  <!-- Halaman -->
+  <div id="page" class="page" style="background-image: url('1.png');">
     <h1>Selamat Datang</h1>
-    <button id="openBtn">Buka Undangan</button>
-  </div>
-
-  <!-- Halaman 2 -->
-  <div id="page2" class="hidden">
-    <h1>Terima kasih sudah membuka undangan ini.</h1>
+    <button id="nextBtn">Buka Undangan</button>
   </div>
 
   <!-- Musik -->
-  <audio id="bgMusic" loop>
+  <audio id="bgMusic" loop muted>
     <source src="musik.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    const openBtn = document.getElementById('openBtn');
-    const page1 = document.getElementById('page1');
-    const page2 = document.getElementById('page2');
+    const page = document.getElementById('page');
+    const nextBtn = document.getElementById('nextBtn');
     const bgMusic = document.getElementById('bgMusic');
 
-    openBtn.addEventListener('click', () => {
-      // Mainkan musik saat tombol ditekan (biar lolos autoplay policy browser)
-      bgMusic.play().catch(err => console.log(err));
+    let step = 1;
 
-      // Tampilkan halaman 2
-      page1.classList.add('hidden');
-      page2.classList.remove('hidden');
-      window.scrollTo(0, 0);
+    nextBtn.addEventListener('click', () => {
+      if (step === 1) {
+        bgMusic.muted = false;
+        bgMusic.play();
+        page.style.backgroundImage = "url('2.png')";
+        page.querySelector('h1').textContent = "Terima kasih sudah membuka undangan";
+        nextBtn.textContent = "Lanjut";
+        step++;
+      } else if (step === 2) {
+        page.style.backgroundImage = "url('3.png')";
+        page.querySelector('h1').textContent = "Sampai jumpa di acara!";
+        nextBtn.remove();
+        step++;
+      }
     });
   </script>
 
