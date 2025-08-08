@@ -21,10 +21,8 @@
 </head>
 <body>
 
-  <!-- Halaman -->
   <div id="page" class="page" style="background-image: url('1.png');"></div>
 
-  <!-- Musik -->
   <audio id="bgMusic" loop muted>
     <source src="musik.mp3" type="audio/mpeg">
   </audio>
@@ -32,17 +30,13 @@
   <script>
     const page = document.getElementById('page');
     const bgMusic = document.getElementById('bgMusic');
-
     let step = 1;
 
     page.addEventListener('click', () => {
       if (step === 1) {
         bgMusic.muted = false;
         bgMusic.play();
-        page.style.backgroundImage = "url('2.png')";
-        step++;
-      } else if (step === 2) {
-        page.style.backgroundImage = "url('3.png')";
+        page.style.backgroundImage = "url('2.3.png')";
         step++;
       }
     });
