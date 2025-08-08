@@ -1,86 +1,39 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Undangan</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
-    .hidden {
-      display: none;
-    }
-    #page1, #page2 {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: url('68b7e14a-5a57-433b-80d6-d2e3f2885597.png') no-repeat center center/cover;
-    }
-    input {
-      padding: 10px;
-      margin: 10px;
-      font-size: 16px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Pengumuman</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .image {
+            max-width: 80%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <!-- Gambar -->
+        <img src="gambar.png" alt="Pengumuman" class="image">
 
-  <!-- Halaman 1 -->
-  <div id="page1">
-    <h1>Masukkan Namamu</h1>
-    <input type="text" id="namaInput" placeholder="Namamu...">
-    <button id="openBtn">Buka Undangan</button>
-  </div>
-
-  <!-- Halaman 2 -->
-  <div id="page2" class="hidden">
-    <h1>Selamat Datang, <span id="namaTamu"></span>!</h1>
-    <p>Terima kasih sudah membuka undangan ini.</p>
-  </div>
-
-  <!-- Musik -->
-  <audio id="bgMusic" autoplay loop muted>
-    <source src="musik.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    const openBtn = document.getElementById('openBtn');
-    const namaInput = document.getElementById('namaInput');
-    const page1 = document.getElementById('page1');
-    const page2 = document.getElementById('page2');
-    const namaTamu = document.getElementById('namaTamu');
-    const bgMusic = document.getElementById('bgMusic');
-
-    openBtn.addEventListener('click', () => {
-      const nama = namaInput.value.trim();
-      if (!nama) {
-        alert('Silakan isi namamu terlebih dahulu!');
-        namaInput.focus();
-        return;
-      }
-
-      // Unmute dan mulai musik
-      bgMusic.muted = false;
-      bgMusic.play();
-
-      // Tampilkan halaman 2
-      namaTamu.textContent = nama;
-      page1.classList.add('hidden');
-      page2.classList.remove('hidden');
-      window.scrollTo(0, 0);
-    });
-  </script>
-
+        <!-- Audio otomatis -->
+        <audio autoplay loop>
+            <source src="musik.mp3" type="audio/mpeg">
+            Browser Anda tidak mendukung audio.
+        </audio>
+    </div>
 </body>
 </html>
