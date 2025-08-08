@@ -16,25 +16,32 @@
       background-position: center;
       cursor: pointer;
     }
-    .pdfpage {
+    #pdf-container {
       width: 100%;
       height: 100vh;
+      overflow-y: auto;
+      background: #fff;
     }
-    .pdfpage iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
+    canvas {
+      display: block;
+      margin: auto;
+      max-width: 100%;
+      height: auto;
     }
   </style>
 </head>
 <body>
 
+  <!-- Halaman 1 -->
   <div id="content" class="fullpage" style="background-image: url('1.png');"></div>
 
+  <!-- Musik -->
   <audio id="bgMusic" loop muted>
     <source src="musik.mp3" type="audio/mpeg">
   </audio>
 
+  <!-- PDF.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
   <script>
     const content = document.getElementById('content');
     const bgMusic = document.getElementById('bgMusic');
@@ -44,16 +51,38 @@
       if (step === 1) {
         bgMusic.muted = false;
         bgMusic.play();
-
-        // ganti jadi PDF yang bisa scroll
-        content.outerHTML = `
-          <div class="pdfpage">
-            <iframe src="k.pdf"></iframe>
-          </div>
-        `;
+        showPDF('k.pdf'); // langsung buka PDF
         step++;
       }
     });
+
+    function showPDF(pdfUrl) {
+      // Hapus halaman awal
+      document.body.innerHTML = '<div id="pdf-container"></div>';
+      const container = document.getElementById('pdf-container');
+
+      // Load PDF
+      pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf) {
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+          pdf.getPage(pageNum).then(function(page) {
+            const scale = 1.5;
+            const viewport = page.getViewport({ scale: scale });
+
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            page.render({
+              canvasContext: context,
+              viewport: viewport
+            }).promise.then(function() {
+              container.appendChild(canvas);
+            });
+          });
+        }
+      });
+    }
   </script>
 
 </body>
