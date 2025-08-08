@@ -9,34 +9,49 @@
       margin: 0;
       padding: 0;
     }
-    .page {
+    .fullpage {
       height: 100vh;
       width: 100vw;
       background-size: cover;
       background-position: center;
-      transition: background-image 0.5s ease-in-out;
       cursor: pointer;
+    }
+    .scrollpage {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    .scrollpage img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
   </style>
 </head>
 <body>
 
-  <div id="page" class="page" style="background-image: url('1.png');"></div>
+  <div id="content" class="fullpage" style="background-image: url('1.png');"></div>
 
   <audio id="bgMusic" loop muted>
     <source src="musik.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    const page = document.getElementById('page');
+    const content = document.getElementById('content');
     const bgMusic = document.getElementById('bgMusic');
     let step = 1;
 
-    page.addEventListener('click', () => {
+    content.addEventListener('click', () => {
       if (step === 1) {
         bgMusic.muted = false;
         bgMusic.play();
-        page.style.backgroundImage = "url('2.3.png')";
+
+        // ganti jadi halaman scroll
+        content.outerHTML = `
+          <div class="scrollpage">
+            <img src="2.3.png" alt="Halaman 2">
+          </div>
+        `;
         step++;
       }
     });
