@@ -8,34 +8,21 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      color: white;
     }
     .page {
       height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      width: 100vw;
       background-size: cover;
       background-position: center;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
+      transition: background-image 0.5s ease-in-out;
       cursor: pointer;
-      margin-top: 20px;
     }
   </style>
 </head>
 <body>
 
   <!-- Halaman -->
-  <div id="page" class="page" style="background-image: url('1.png');">
-    <h1>Selamat Datang</h1>
-    <button id="nextBtn">Buka Undangan</button>
-  </div>
+  <div id="page" class="page" style="background-image: url('1.png');"></div>
 
   <!-- Musik -->
   <audio id="bgMusic" loop muted>
@@ -44,23 +31,18 @@
 
   <script>
     const page = document.getElementById('page');
-    const nextBtn = document.getElementById('nextBtn');
     const bgMusic = document.getElementById('bgMusic');
 
     let step = 1;
 
-    nextBtn.addEventListener('click', () => {
+    page.addEventListener('click', () => {
       if (step === 1) {
         bgMusic.muted = false;
         bgMusic.play();
         page.style.backgroundImage = "url('2.png')";
-        page.querySelector('h1').textContent = "Terima kasih sudah membuka undangan";
-        nextBtn.textContent = "Lanjut";
         step++;
       } else if (step === 2) {
         page.style.backgroundImage = "url('3.png')";
-        page.querySelector('h1').textContent = "Sampai jumpa di acara!";
-        nextBtn.remove();
         step++;
       }
     });
