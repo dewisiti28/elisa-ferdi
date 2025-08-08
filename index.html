@@ -1,39 +1,68 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Pengumuman</title>
-    <style>
-        body {
-            background-color: #f0f0f0;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        .image {
-            max-width: 80%;
-            height: auto;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .hidden {
+      display: none;
+    }
+    #page1, #page2 {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: url('68b7e14a-5a57-433b-80d6-d2e3f2885597.png') no-repeat center center/cover;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Gambar -->
-        <img src="gambar.png" alt="Pengumuman" class="image">
 
-        <!-- Audio otomatis -->
-        <audio autoplay loop>
-            <source src="musik.mp3" type="audio/mpeg">
-            Browser Anda tidak mendukung audio.
-        </audio>
-    </div>
+  <!-- Halaman 1 -->
+  <div id="page1">
+    <h1>Selamat Datang</h1>
+    <button id="openBtn">Buka Undangan</button>
+  </div>
+
+  <!-- Halaman 2 -->
+  <div id="page2" class="hidden">
+    <h1>Terima kasih sudah membuka undangan ini.</h1>
+  </div>
+
+  <!-- Musik -->
+  <audio id="bgMusic" loop>
+    <source src="musik.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const openBtn = document.getElementById('openBtn');
+    const page1 = document.getElementById('page1');
+    const page2 = document.getElementById('page2');
+    const bgMusic = document.getElementById('bgMusic');
+
+    openBtn.addEventListener('click', () => {
+      // Mainkan musik saat tombol ditekan (biar lolos autoplay policy browser)
+      bgMusic.play().catch(err => console.log(err));
+
+      // Tampilkan halaman 2
+      page1.classList.add('hidden');
+      page2.classList.remove('hidden');
+      window.scrollTo(0, 0);
+    });
+  </script>
+
 </body>
 </html>
